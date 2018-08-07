@@ -5,7 +5,6 @@ from tkinter import Canvas
 from tkinter import Tk
 from tkinter import mainloop
 
-
 w = Canvas(Tk(), width=900, height=400)
 w.pack()
 
