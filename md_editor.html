@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue.js Markdown Editor</title>
+    <style>
+        #app {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        textarea, div {
+            width: 45%;
+            height: 300px;
+        }
+        textarea {
+            padding: 10px;
+            font-size: 16px;
+        }
+        div {
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <textarea v-model="input" debounce="300"></textarea>
+        <div v-html="compiledMarkdown"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@2.0.3/marked.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                input: '# hello'
+            },
+            computed: {
+                compiledMarkdown: function () {
+                    return marked(this.input, { sanitize: true })
+                }
+            },
+            methods: {
+                update: _.debounce(function (e) {
+                    this.input = e.target.value
+                }, 300),
+            }
+        })
+    </script>
+</body>
+</html>
